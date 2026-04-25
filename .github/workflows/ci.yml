@@ -45,7 +45,7 @@ jobs:
 
       - uses: actions/setup-node@v5
         with:
-          node-version: 20
+          node-version: 22
           cache: pnpm
           cache-dependency-path: frontend/pnpm-lock.yaml
 
@@ -56,7 +56,9 @@ jobs:
         run: pnpm lint
 
       - name: Test
-        run: pnpm test --run
+        # Script `test` is already `vitest run` (one-shot); pnpm v9 rejects
+        # the bare `--run` arg, so call the script with no extra flags.
+        run: pnpm test
 
       - name: Build
         run: pnpm build
