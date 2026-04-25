@@ -1,0 +1,26 @@
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+
+# Virtual environments
+.venv
+
+# Secrets — never commit
+.env
+.env.*
+!.env.example
+
+# Local SQLite database
+data/
+*.db
+*.db-shm
+*.db-wal
+
+# Tooling caches
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/

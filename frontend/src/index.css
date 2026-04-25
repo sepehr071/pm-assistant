@@ -1,0 +1,207 @@
+@import 'tailwindcss';
+
+/* ----------------------------------------------------------------------------
+   Glassmorphism design tokens.
+   Layered over a slow animated aurora set on body::before so the panels
+   actually have something to "glass" against.
+---------------------------------------------------------------------------- */
+@theme {
+  --color-app-bg: #07070d;
+  --glass-bg: rgba(20, 20, 32, 0.55);
+  --glass-bg-strong: rgba(22, 22, 34, 0.78);
+  --glass-bg-row: rgba(255, 255, 255, 0.03);
+  --glass-bg-row-hover: rgba(255, 255, 255, 0.06);
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --glass-border-strong: rgba(255, 255, 255, 0.14);
+  --glass-highlight: rgba(255, 255, 255, 0.06);
+  --glass-blur: 18px;
+  --glass-blur-strong: 28px;
+  --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
+  --glass-shadow-elevated: 0 24px 60px rgba(0, 0, 0, 0.55);
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family:
+    system-ui,
+    -apple-system,
+    'Segoe UI',
+    Roboto,
+    sans-serif;
+  background: var(--color-app-bg);
+  color: #e5e7eb;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Aurora layer — three radial gradient blobs slowly drifting behind the UI. */
+body::before {
+  content: '';
+  position: fixed;
+  inset: -20%;
+  z-index: -1;
+  pointer-events: none;
+  background-image:
+    radial-gradient(
+      40rem 40rem at 18% 22%,
+      rgba(99, 102, 241, 0.32),
+      transparent 60%
+    ),
+    radial-gradient(
+      36rem 36rem at 82% 78%,
+      rgba(45, 212, 191, 0.18),
+      transparent 60%
+    ),
+    radial-gradient(
+      32rem 32rem at 65% 18%,
+      rgba(168, 85, 247, 0.22),
+      transparent 60%
+    );
+  filter: blur(40px) saturate(120%);
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  body::before {
+    animation: aurora-drift 38s ease-in-out infinite alternate;
+  }
+}
+
+@keyframes aurora-drift {
+  0% {
+    transform: translate3d(-3%, -2%, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(3%, 2%, 0) scale(1.05);
+  }
+  100% {
+    transform: translate3d(-2%, 3%, 0) scale(1);
+  }
+}
+
+/* Subtle vignette so glass panels read against the brightest part of the aurora. */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: radial-gradient(
+    120% 80% at 50% 50%,
+    transparent 40%,
+    rgba(0, 0, 0, 0.45) 100%
+  );
+}
+
+@layer utilities {
+  .glass-panel {
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--glass-blur)) saturate(140%);
+    -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(140%);
+    border: 1px solid var(--glass-border);
+    box-shadow:
+      var(--glass-shadow),
+      inset 0 1px 0 var(--glass-highlight);
+  }
+
+  .glass-elevated {
+    background: var(--glass-bg-strong);
+    backdrop-filter: blur(var(--glass-blur-strong)) saturate(160%);
+    -webkit-backdrop-filter: blur(var(--glass-blur-strong)) saturate(160%);
+    border: 1px solid var(--glass-border-strong);
+    box-shadow:
+      var(--glass-shadow-elevated),
+      inset 0 1px 0 var(--glass-highlight);
+  }
+
+  .glass-input {
+    background: rgba(255, 255, 255, 0.04);
+    backdrop-filter: blur(12px) saturate(130%);
+    -webkit-backdrop-filter: blur(12px) saturate(130%);
+    border: 1px solid var(--glass-border);
+    transition:
+      border-color 0.15s ease,
+      background-color 0.15s ease,
+      box-shadow 0.15s ease;
+  }
+
+  .glass-input:focus,
+  .glass-input:focus-within {
+    border-color: rgba(96, 165, 250, 0.55);
+    background: rgba(255, 255, 255, 0.06);
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.18);
+    outline: none;
+  }
+
+  .glass-row {
+    background: transparent;
+    border: 1px solid transparent;
+    transition:
+      background-color 0.15s ease,
+      border-color 0.15s ease;
+  }
+
+  .glass-row:hover {
+    background: var(--glass-bg-row-hover);
+    border-color: var(--glass-border);
+  }
+
+  .glass-row[data-active='true'] {
+    background: var(--glass-bg);
+    border-color: var(--glass-border-strong);
+    box-shadow: inset 0 1px 0 var(--glass-highlight);
+  }
+
+  /* Used as the modal backdrop — blurs whatever is behind the dialog. */
+  .glass-backdrop {
+    background: rgba(7, 7, 13, 0.45);
+    backdrop-filter: blur(14px) saturate(140%);
+    -webkit-backdrop-filter: blur(14px) saturate(140%);
+  }
+
+  /* Tinted code/pre block that reads on top of glass-panel containers. */
+  .glass-pre {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--glass-border);
+  }
+}
+
+/* ----------------------------------------------------------------------------
+   Custom scrollbars — thin, translucent, glass-friendly. Applied globally.
+---------------------------------------------------------------------------- */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.14) transparent;
+}
+
+*::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 999px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+  transition: background-color 0.2s ease;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(255, 255, 255, 0.22);
+  background-clip: padding-box;
+}
+
+*::-webkit-scrollbar-corner {
+  background: transparent;
+}

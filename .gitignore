@@ -1,0 +1,45 @@
+# --- Secrets ----------------------------------------------------------------
+.env
+.env.*
+!.env.example
+
+# --- Python -----------------------------------------------------------------
+__pycache__/
+*.py[oc]
+*.egg-info/
+.venv/
+venv/
+build/
+wheels/
+
+# --- Node / pnpm ------------------------------------------------------------
+node_modules/
+dist/
+.pnpm-store/
+
+# --- Local DB ---------------------------------------------------------------
+data/
+*.db
+*.db-shm
+*.db-wal
+
+# --- Tooling caches ---------------------------------------------------------
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+
+# --- IDEs / OS --------------------------------------------------------------
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# --- Misc -------------------------------------------------------------------
+.playwright-mcp/
+*.log
+.claude/settings.local.json
+CLAUDE.original.md
