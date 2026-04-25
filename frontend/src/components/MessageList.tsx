@@ -73,11 +73,10 @@ function extractRuleTrigger(content: string): string | null {
 // ---------------------------------------------------------------------------
 
 interface UserRowProps {
-  id: number | string
   content: string
 }
 
-const UserRow = memo(function UserRow({ id: _id, content }: UserRowProps) {
+const UserRow = memo(function UserRow({ content }: UserRowProps) {
   const ruleTrigger = extractRuleTrigger(content)
   return (
     <div data-testid="message-user" className="flex flex-col items-end gap-1">
@@ -301,7 +300,7 @@ export function MessageList({ messages, inflightTools = EMPTY_INFLIGHT }: Messag
           return <SystemRow key={m.id} content={m.content} />
         }
         if (m.role === 'user') {
-          return <UserRow key={m.id} id={m.id} content={m.content} />
+          return <UserRow key={m.id} content={m.content} />
         }
         const isLastAssistant = idx === messages.length - 1
         const inflightHere = isLastAssistant ? inflightTools : EMPTY_INFLIGHT
