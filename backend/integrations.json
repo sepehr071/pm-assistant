@@ -1,0 +1,49 @@
+{
+  "namespace": "pm-assistant",
+  "servers": {
+    "confluence": {
+      "label": "Confluence",
+      "mcpUrl": "https://server.smithery.ai/confluence/mcp"
+    },
+    "figma": {
+      "label": "Figma",
+      "mcpUrl": "https://server.smithery.ai/figma/mcp"
+    },
+    "github": {
+      "label": "GitHub",
+      "mcpUrl": "https://server.smithery.ai/github"
+    },
+    "gmail": {
+      "label": "Gmail",
+      "mcpUrl": "https://server.smithery.ai/gmail/mcp"
+    },
+    "googlecalendar": {
+      "label": "Google Calendar",
+      "mcpUrl": "https://server.smithery.ai/googlecalendar/mcp"
+    },
+    "googlesheets": {
+      "label": "Google Sheets",
+      "mcpUrl": "https://server.smithery.ai/googlesheets/mcp"
+    },
+    "jira": {
+      "label": "Jira",
+      "mcpUrl": "https://mcp.atlassian.com/v1/mcp"
+    },
+    "linear": {
+      "label": "Linear",
+      "mcpUrl": "https://server.smithery.ai/linear/mcp"
+    },
+    "notion": {
+      "label": "Notion",
+      "mcpUrl": "https://server.smithery.ai/@smithery/notion/mcp"
+    },
+    "outlook": {
+      "label": "Outlook",
+      "mcpUrl": "https://server.smithery.ai/outlook/mcp"
+    },
+    "slack": {
+      "label": "Slack",
+      "mcpUrl": "https://server.smithery.ai/slack"
+    }
+  }
+}

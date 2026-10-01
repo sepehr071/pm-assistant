@@ -1,0 +1,61 @@
+const en = {
+  'integrations.title': 'Integrations',
+  'integrations.help': 'Each integration runs through Smithery.',
+  'integrations.summary': '{connected} connected · {total} total · {attention} need attention',
+  'integrations.summaryNoAttention': '{connected} connected · {total} total',
+  'integrations.refreshAll': 'Refresh all',
+  'integrations.loading': 'Loading integrations…',
+  'integrations.failedToLoad': 'Failed to load: {error}',
+  'integrations.empty': 'No integrations configured in backend/integrations.json.',
+
+  'integrations.state.connected': 'connected',
+  'integrations.state.signin': 'sign-in',
+  'integrations.state.config': 'config',
+  'integrations.state.error': 'error',
+  'integrations.state.idle': 'idle',
+  'integrations.state.setup': 'setup',
+  'integrations.state.disconnected': 'disconnected',
+  'integrations.state.unconfigured': 'unconfigured',
+
+  'integrations.awaitingSignin': 'Awaiting sign-in…',
+  'integrations.configHint': 'Set SMITHERY_API_KEY and restart the backend.',
+  'integrations.refresh': 'Refresh',
+  'integrations.disconnect': 'Disconnect',
+  'integrations.connect': 'Connect',
+  'integrations.waiting': 'Waiting…',
+  'integrations.toolsOne': '1 tool',
+  'integrations.toolsOther': '{n} tools',
+  'integrations.closePopup': 'Close',
+} as const
+
+const fa: Record<keyof typeof en, string> = {
+  'integrations.title': 'یکپارچه‌سازی‌ها',
+  'integrations.help': 'هر یکپارچه‌سازی از طریق Smithery اجرا می‌شود.',
+  'integrations.summary': '{connected} متصل · {total} مجموع · {attention} نیازمند توجه',
+  'integrations.summaryNoAttention': '{connected} متصل · {total} مجموع',
+  'integrations.refreshAll': 'به‌روزرسانی همه',
+  'integrations.loading': 'در حال بارگذاری یکپارچه‌سازی‌ها…',
+  'integrations.failedToLoad': 'بارگذاری ناموفق بود: {error}',
+  'integrations.empty': 'هیچ یکپارچه‌سازی‌ای در backend/integrations.json پیکربندی نشده است.',
+
+  'integrations.state.connected': 'متصل',
+  'integrations.state.signin': 'ورود',
+  'integrations.state.config': 'پیکربندی',
+  'integrations.state.error': 'خطا',
+  'integrations.state.idle': 'بیکار',
+  'integrations.state.setup': 'راه‌اندازی',
+  'integrations.state.disconnected': 'قطع',
+  'integrations.state.unconfigured': 'پیکربندی‌نشده',
+
+  'integrations.awaitingSignin': 'در انتظار ورود…',
+  'integrations.configHint': 'متغیر SMITHERY_API_KEY را تنظیم و بک‌اند را بازراه‌اندازی کنید.',
+  'integrations.refresh': 'به‌روزرسانی',
+  'integrations.disconnect': 'قطع اتصال',
+  'integrations.connect': 'اتصال',
+  'integrations.waiting': 'در انتظار…',
+  'integrations.toolsOne': '۱ ابزار',
+  'integrations.toolsOther': '{n} ابزار',
+  'integrations.closePopup': 'بستن',
+}
+
+export const integrations = { en, fa }
