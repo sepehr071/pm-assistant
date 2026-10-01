@@ -113,6 +113,18 @@ function readInitialRuleSeen(): Record<number, number> {
   return out
 }
 
+/**
+ * Index of the still-streaming assistant bubble, or -1. Tool result rows are
+ * appended after it mid-turn, so it is not necessarily the last message.
+ */
+function lastStreamingAssistantIdx(msgs: Message[]): number {
+  for (let i = msgs.length - 1; i >= 0; i--) {
+    const m = msgs[i]
+    if (m.role === 'assistant') return m.isStreaming ? i : -1
+  }
+  return -1
+}
+
 export const useAppStore = create<AppState>((set) => ({
   activeChatId: null,
   chats: [],
@@ -144,24 +156,20 @@ export const useAppStore = create<AppState>((set) => ({
   updateLastAssistantDelta: (chatId, delta) =>
     set((state) => {
       const prev = state.messagesByChat[chatId] ?? []
-      if (prev.length === 0) return state
-      const lastIdx = prev.length - 1
-      const last = prev[lastIdx]
-      if (last.role !== 'assistant' || !last.isStreaming) return state
+      const idx = lastStreamingAssistantIdx(prev)
+      if (idx === -1) return state
       const next = prev.slice()
-      next[lastIdx] = { ...last, content: last.content + delta }
+      next[idx] = { ...prev[idx], content: prev[idx].content + delta }
       return { messagesByChat: { ...state.messagesByChat, [chatId]: next } }
     }),
 
   finalizeStreamingMessage: (chatId) =>
     set((state) => {
       const prev = state.messagesByChat[chatId] ?? []
-      if (prev.length === 0) return state
-      const lastIdx = prev.length - 1
-      const last = prev[lastIdx]
-      if (last.role !== 'assistant' || !last.isStreaming) return state
+      const idx = lastStreamingAssistantIdx(prev)
+      if (idx === -1) return state
       const next = prev.slice()
-      next[lastIdx] = { ...last, isStreaming: false }
+      next[idx] = { ...prev[idx], isStreaming: false }
       return { messagesByChat: { ...state.messagesByChat, [chatId]: next } }
     }),
 

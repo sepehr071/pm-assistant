@@ -268,6 +268,32 @@ describe('store — usage slice', () => {
     })
     expect(useAppStore.getState().messagesByChat[chatId][0].truncated).toBe(true)
   })
+
+  it('streams tokens into and finalizes the assistant bubble after a tool result row', () => {
+    const chatId = 8
+    const streaming: Message = {
+      id: 'a',
+      role: 'assistant',
+      content: 'Checking. ',
+      isStreaming: true,
+    }
+    useAppStore.setState({ messagesByChat: { [chatId]: [streaming] } })
+    act(() => {
+      const s = useAppStore.getState()
+      s.addToolCallMessage(chatId, {
+        tool_call_id: 'c1',
+        name: 'pm__create_task',
+        result: 'ok',
+        is_error: false,
+      })
+      s.updateLastAssistantDelta(chatId, 'Done.')
+      s.finalizeStreamingMessage(chatId)
+    })
+    const [assistant, tool] = useAppStore.getState().messagesByChat[chatId]
+    expect(assistant.content).toBe('Checking. Done.')
+    expect(assistant.isStreaming).toBe(false)
+    expect(tool.role).toBe('tool')
+  })
 })
 
 // ---------------------------------------------------------------------------

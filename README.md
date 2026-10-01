@@ -364,3 +364,7 @@ MIT — see [`LICENSE`](LICENSE).
 - [Smithery](https://smithery.ai) for the hosted MCP gateway.
 - [OpenRouter](https://openrouter.ai) for model routing.
 - The MCP working group for the protocol that makes this small.
+
+---
+
+<sub>Built by <a href="https://sepehrradmard.ir">Sepehr Radmard</a> · <a href="https://www.linkedin.com/in/sepehr-radmard/">LinkedIn</a> · <a href="https://github.com/sepehr071">GitHub</a> · more projects on my <a href="https://github.com/sepehr071">profile</a></sub>
